@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './components/Login';
 import Register from './components/Register';
 import Recover from './components/Recover';
+import Profile from './components/Profile';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Recover" component={Recover} />
+        <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
