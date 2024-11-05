@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, View, Text, Image, Switch, TouchableOpacity }
 import { Ionicons } from '@expo/vector-icons';
 
 export default function Profile({ route }) {
-  const { email } = route.params; // Get email from route params
+  const { email } = route.params;
   const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -29,7 +29,7 @@ export default function Profile({ route }) {
           </View>
 
           {/* Avatar and Profile Details */}
-          <Image source={require('./assets/ME.jpg')} style={styles.avatar} />
+          <Image source={require('../assets/ME.jpg')} style={styles.avatar} />
           <Text style={[styles.name, dynamicStyles.text]}>BANDIOLA, LEDY JOY D.</Text>
           <Text style={[styles.info, dynamicStyles.text]}>3rd Year, USTP CDO</Text>
           <Text style={[styles.info, dynamicStyles.text]}>{email}</Text> {/* Display email here */}
