@@ -21,7 +21,7 @@ export default function Login({ navigation }) {
     } else {
       setError('');
       await AsyncStorage.setItem('currentUser', email);
-      navigation.navigate('Profile', { email }); // Pass email to Profile
+      navigation.navigate('Profile', { email });
     }
   };
 

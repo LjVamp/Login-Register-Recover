@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, View, Text, Image, Switch, TouchableOpacity } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Text, Image, Switch, TouchableOpacity, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function Profile({ route }) {
-  const { email } = route.params;
+export default function Profile({ navigation }) {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
+  };
+
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('currentUser');
+    Alert.alert('Logout', 'You have been logged out.');
+    navigation.navigate('Login');
   };
 
   const dynamicStyles = isDarkMode ? darkStyles : lightStyles;
@@ -32,7 +38,7 @@ export default function Profile({ route }) {
           <Image source={require('../assets/ME.jpg')} style={styles.avatar} />
           <Text style={[styles.name, dynamicStyles.text]}>BANDIOLA, LEDY JOY D.</Text>
           <Text style={[styles.info, dynamicStyles.text]}>3rd Year, USTP CDO</Text>
-          <Text style={[styles.info, dynamicStyles.text]}>{email}</Text> {/* Display email here */}
+          <Text style={[styles.info, dynamicStyles.text]}>bandiola.ledyjoy@gmail.com</Text>
 
           {/* Toggle for Light/Dark Mode */}
           <View style={styles.switchContainer}>
@@ -57,10 +63,15 @@ export default function Profile({ route }) {
 
             {/* Sidebar Content */}
             <View style={styles.sidebarProfileContainer}>
-              <Image source={require('./assets/ME.jpg')} style={styles.sidebarAvatar} />
+              <Image source={require('../assets/ME.jpg')} style={styles.sidebarAvatar} />
               <Text style={styles.sidebarName}>BANDIOLA, LEDY JOY D.</Text>
               <Text style={styles.sidebarInfo}>Student</Text>
             </View>
+
+            {/* Logout Button */}
+            <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+              <Text style={styles.logoutButtonText}>Logout</Text>
+            </TouchableOpacity>
 
             {/* Footer Text */}
             <View style={styles.sidebarFooter}>
@@ -168,6 +179,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     color: '#fff',
+  },
+  logoutButton: {
+    alignSelf: 'center',
+    backgroundColor: '#F0ECE5',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 395,
+  },
+  logoutButtonText: {
+    color: '#161A30',
+    fontWeight: 'bold',
   },
   sidebarFooter: {
     alignItems: 'center',
